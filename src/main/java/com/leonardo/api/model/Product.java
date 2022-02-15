@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 public class Product {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     private String name;
     private double price;
     private int quantity;
@@ -15,7 +15,18 @@ public class Product {
     @ManyToOne
     private Provider provider;
 
-    public Product(int id, String name, double price, int quantity, Category category, Provider provider) {
+    public Product() {
+    }
+
+    public Product(String name, double price, int quantity, Category category, Provider provider) {
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
+        this.category = category;
+        this.provider = provider;
+    }
+
+    public Product(Long id, String name, double price, int quantity, Category category, Provider provider) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -24,11 +35,11 @@ public class Product {
         this.provider = provider;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
