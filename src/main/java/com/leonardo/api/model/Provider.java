@@ -9,7 +9,7 @@ import jakarta.persistence.Id;
 public class Provider {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     private String name;
     private int number;
 
@@ -21,17 +21,17 @@ public class Provider {
         this.number = number;
     }
 
-    public Provider(int id, String name, int number) {
+    public Provider(Long id, String name, int number) {
         this.id = id;
         this.name = name;
         this.number = number;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
