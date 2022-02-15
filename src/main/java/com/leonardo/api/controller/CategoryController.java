@@ -1,6 +1,6 @@
 package com.leonardo.api.controller;
 
-import com.leonardo.api.controller.form.CategoryForm;
+import com.leonardo.api.model.form.CategoryForm;
 import com.leonardo.api.model.Category;
 import com.leonardo.api.service.CategoryService;
 import jakarta.validation.Valid;
@@ -18,6 +18,11 @@ public class CategoryController {
 
     @Autowired
     private CategoryService categoryService;
+
+    @GetMapping("/{id}")
+    public Category getCategoryById(@PathVariable Long id) {
+        return categoryService.getCategoryById(id);
+    }
 
     @GetMapping
     public List<Category> getAllCategories() {
@@ -39,7 +44,6 @@ public class CategoryController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteCategory(@PathVariable Long id) {
-        categoryService.deleteCategory(id);
-        return ResponseEntity.ok("Category of id " + id + " deleted with successfully");
+        return categoryService.deleteCategory(id);
     }
 }

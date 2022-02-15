@@ -1,13 +1,15 @@
 package com.leonardo.api.service;
 
-import com.leonardo.api.controller.form.CategoryForm;
 import com.leonardo.api.model.Category;
+import com.leonardo.api.model.form.CategoryForm;
 import com.leonardo.api.repository.CategoryRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -20,9 +22,12 @@ public class CategoryService {
         return categoryRepository.findAll();
     }
 
-    private Category getCategoryById(Long id) {
-        Optional<Category> category = categoryRepository.findById(id);
-        return category.get();
+    public Category getCategoryById(Long id) {
+        Optional<Category> optional = categoryRepository.findById(id);
+        if(optional.isPresent()){
+            return optional.get();
+        }
+        throw new NoSuchElementException("Element of id " + id + " does not exist");
     }
 
     @Transactional
@@ -40,7 +45,9 @@ public class CategoryService {
     }
 
     @Transactional
-    public void deleteCategory(Long id) {
+    public ResponseEntity<String> deleteCategory(Long id) {
+        getCategoryById(id);
         categoryRepository.deleteById(id);
+        return ResponseEntity.ok("Category of id " + id + " deleted with successfully");
     }
 }
