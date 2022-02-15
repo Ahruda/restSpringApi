@@ -13,6 +13,14 @@ public class Provider {
     private String name;
     private int number;
 
+    public Provider() {
+    }
+
+    public Provider(String name, int number) {
+        this.name = name;
+        this.number = number;
+    }
+
     public Provider(int id, String name, int number) {
         this.id = id;
         this.name = name;
