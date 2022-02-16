@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -30,5 +31,12 @@ public class Handler {
     @ExceptionHandler(NoSuchElementException.class)
     public ErrorNotExist handleNotExist(NoSuchElementException exception) {
         return new ErrorNotExist(exception.getMessage());
+    }
+
+
+    @ResponseStatus(code = HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
+    public ErrorSql handleSqlViolation(SQLIntegrityConstraintViolationException exception) {
+        return new ErrorSql(exception.getMessage());
     }
 }
