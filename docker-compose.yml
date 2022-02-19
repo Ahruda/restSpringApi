@@ -1,0 +1,28 @@
+version: '3'
+services:
+  commerce-api:
+    build:
+      dockerfile: ./Dockerfile
+      context: .
+    image: spring/commerce-api
+    container_name: commerce-api
+    ports:
+      - "8080:8080"
+    networks:
+      - production-network
+    depends_on:
+      - "db"
+
+  db:
+    image: mysql
+    networks:
+      - production-network
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: commerce
+
+networks:
+  production-network:
+    driver: bridge
