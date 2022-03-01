@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.leonardo</groupId>
-	<artifactId>restSpringApi</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>restSpringApi</name>
+	<artifactId>inventory</artifactId>
+	<version>1.0.0</version>
+	<name>inventoryApi</name>
 	<description>Rest api with Spring 3, docker and docker-compose</description>
 	<packaging>jar</packaging>
 	<properties>

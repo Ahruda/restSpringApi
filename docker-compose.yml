@@ -1,28 +1,32 @@
-version: '3'
+version: '3.9'
 services:
-  commerce-api:
-    build:
-      dockerfile: ./Dockerfile
-      context: .
-    image: spring/commerce-api
-    container_name: commerce-api
-    ports:
-      - "8080:8080"
-    networks:
-      - production-network
-    depends_on:
-      - "db"
-
   db:
     image: mysql
+    container_name: db
     networks:
       - production-network
     command: --default-authentication-plugin=mysql_native_password
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: commerce
-
+      MYSQL_DATABASE: inventory
+    healthcheck:
+      test: [ "CMD", 'mysqladmin', 'ping', '-h', 'localhost', '-u', 'root', '-proot' ]
+      timeout: 5s
+      retries: 1
+  inventory-api:
+    #    build:
+    #      dockerfile: ./Dockerfile
+    #      context: .
+    image: ahruda/inventory-api:1.0
+    container_name: inventory-api
+    ports:
+      - "8080:8080"
+    networks:
+      - production-network
+    depends_on:
+      db:
+        condition: service_healthy
 networks:
   production-network:
     driver: bridge

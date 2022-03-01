@@ -5,7 +5,7 @@ spring:
   datasource:
     password: root
     username: root
-    url: jdbc:mysql://db:3306/commerce
+    url: jdbc:mysql://db:3306/inventory
   jpa:
     hibernate:
       ddl-auto: update
